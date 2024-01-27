@@ -48,6 +48,19 @@ public abstract class ChessPiece extends Pieces {
         return p != null && p.getColour() != colour;
     }
 
+    // Decorator-related methods
+    public void draw() {
+        System.out.println("Drawing ChessPiece");
+    }
+
+    public void move(int x, int y) {
+        System.out.println("Moving ChessPiece to " + x + ", " + y);
+    }
+
+    public void capture(ChessPiece other) {
+        System.out.println("Capturing ChessPiece");
+    }
+
     // Factory method to create concrete ChessPiece instances based on type and color
     public static ChessPiece createPiece(String type, Colour colour, GameBoard board, ChessMatch chessMatch) {
         switch (type.toUpperCase()) {
@@ -76,4 +89,42 @@ public abstract class ChessPiece extends Pieces {
         }
     }
 
+    // Factory method to create a KnightDecorator
+    public ChessPiece createKnightDecorator(ChessPiece decoratedPiece) {
+        return new KnightDecorator(decoratedPiece);
+    }
+
+    // Concrete decorator class for adding the ability to move like a knight
+    public class KnightDecorator extends ChessPiece {
+
+        private final ChessPiece decoratedPiece;
+
+        public KnightDecorator(ChessPiece decoratedPiece) {
+            super(decoratedPiece.getBoard(), decoratedPiece.getColour());
+            this.decoratedPiece = decoratedPiece;
+        }
+
+        @Override
+        public void draw() {
+            decoratedPiece.draw();
+            System.out.println("Drawing KnightDecorator");
+        }
+
+        @Override
+        public void move(int x, int y) {
+            System.out.println("Moving like a knight!");
+            decoratedPiece.move(x, y);
+        }
+
+        @Override
+        public void capture(ChessPiece other) {
+            decoratedPiece.capture(other);
+            System.out.println("Capturing with special knight ability");
+        }
+
+        @Override
+        public boolean[][] possibleMoves() {
+            return new boolean[0][];
+        }
+    }
 }
