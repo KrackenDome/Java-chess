@@ -2,6 +2,7 @@
 
 ## Singleton Pattern: 
 This pattern is indeed used in the `ChessMatch` class, which ensures that only one instance of a chess match is active at any given time.
+
 ![img_1.png](img_1.png)
 
 
