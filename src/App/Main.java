@@ -19,7 +19,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         // Create a ChessMatch object to represent the chess game
-        ChessMatch chessMatch = new ChessMatch();
+        ChessMatch chessMatch = new ChessMatch().getInstance();
 
         // Create an empty list to store captured chess pieces
         List<ChessPiece> captured = new ArrayList<>();

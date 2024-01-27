@@ -3,6 +3,7 @@ package Chess;
 import Board.GameBoard;
 import Board.Pieces;
 import Board.Position;
+import Chess.piece.*;
 
 public abstract class ChessPiece extends Pieces {
 
@@ -46,4 +47,33 @@ public abstract class ChessPiece extends Pieces {
         ChessPiece p = (ChessPiece) getBoard().pieces(position);
         return p != null && p.getColour() != colour;
     }
+
+    // Factory method to create concrete ChessPiece instances based on type and color
+    public static ChessPiece createPiece(String type, Colour colour, GameBoard board, ChessMatch chessMatch) {
+        switch (type.toUpperCase()) {
+            case "KING":
+                return new King(board, colour, chessMatch);
+            case "PAWN":
+                return new Pawn(board, colour, chessMatch);
+            default:
+                throw new IllegalArgumentException("Invalid chess piece type: " + type);
+        }
+    }
+
+    // Factory method overload for pieces that don't require ChessMatch
+    public static ChessPiece createPiece(String type, Colour colour, GameBoard board) {
+        switch (type.toUpperCase()) {
+            case "ROOK":
+                return new Rook(board, colour);
+            case "BISHOP":
+                return new Bishop(board, colour);
+            case "KNIGHT":
+                return new Knight(board, colour);
+            case "QUEEN":
+                return new Queen(board, colour);
+            default:
+                throw new IllegalArgumentException("Invalid chess piece type: " + type);
+        }
+    }
+
 }
